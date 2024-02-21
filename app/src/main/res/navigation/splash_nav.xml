@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/splash_nav"
+    app:startDestination="@id/splashScreen">
+
+<!--    <include app:graph="@navigation/home_nav" />-->
+
+
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="com.shabban.texttoimage.presentation.UI.fragments.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen_to_premiumScreen"
+            app:destination="@id/premiumScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/premiumScreen"
+        android:name="com.shabban.texttoimage.presentation.UI.fragments.PremiumScreen"
+        android:label="fragment_premium_screen"
+        tools:layout="@layout/fragment_premium_screen" >
+        <action
+            android:id="@+id/action_premiumScreen_to_homeFragment"
+            app:destination="@id/parentFragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/parentFragment"
+        android:name="com.shabban.texttoimage.presentation.UI.fragments.ParentFragment"
+        android:label="fragment_parent"
+        tools:layout="@layout/fragment_parent" >
+        <action
+            android:id="@+id/toResultFragment"
+            app:destination="@id/resultFragment" />
+        <action
+            android:id="@+id/action_parentFragment_to_profileViewFragment2"
+            app:destination="@id/profileViewFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.shabban.texttoimage.presentation.UI.fragments.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/profileViewFragment2"
+        android:name="com.shabban.texttoimage.presentation.UI.fragments.ProfileViewFragment"
+        android:label="fragment_profile_view"
+        tools:layout="@layout/fragment_profile_view" />
+</navigation>
+

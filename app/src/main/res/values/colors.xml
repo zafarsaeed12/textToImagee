@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="lightblack">#292929</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="maincolorbg">#F9F2FF</color>
+    <color name="profileclor">#9869B8</color>
+    <color name="purple">#362990</color>
+    <color name="splash">#0F0E10</color>
+</resources>

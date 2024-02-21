@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="@dimen/_40sdp"
+    android:background="@drawable/bg_home3"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/genrating_creation"
+        android:textSize="@dimen/_16sdp"
+        android:textColor="@color/lightblack"
+        android:fontFamily="@font/poppinsmedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/downloadingProgress"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        android:elevation="5dp"
+        android:layout_marginTop="@dimen/_19sdp"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        app:cpb_background_progressbar_width="15dp"
+        app:cpb_progress="100"
+        app:cpb_progress_direction="to_right"
+        app:cpb_progressbar_color="@color/white"
+        app:cpb_progressbar_color_end="#CA8BF6"
+        app:cpb_progressbar_color_start="#9869B8"
+        app:cpb_progressbar_width="@dimen/_19sdp"
+        app:cpb_round_border="true"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+
+    <TextView
+        android:id="@+id/progressTv"
+        android:layout_width="@dimen/_140sdp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/percentage"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/downloadingProgress"
+        app:layout_constraintEnd_toEndOf="@+id/downloadingProgress"
+        app:layout_constraintStart_toStartOf="@+id/downloadingProgress"
+        app:layout_constraintTop_toTopOf="@+id/downloadingProgress" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
