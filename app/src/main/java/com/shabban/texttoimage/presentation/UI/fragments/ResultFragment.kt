@@ -12,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shabban.texttoimage.Common.Constant
+import com.shabban.texttoimage.Common.saveBase64Image
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar
 import com.shabban.texttoimage.Data.model.request.ImageRequest
+import com.shabban.texttoimage.Data.model.response.ImageResponse
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.Utils.Resource
 import com.shabban.texttoimage.databinding.FragmentResultBinding
@@ -31,6 +33,9 @@ class ResultFragment : Fragment() {
     private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
     private val viewModel: ResultFragmentViewModel by viewModels()
     val TAG = "ResultFragmentTAG"
+
+    var currentImage : String? = Constant.EMPTY_STRING
+    var currentImageBase64 : String?  = Constant.EMPTY_STRING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,21 +62,29 @@ class ResultFragment : Fragment() {
         getImage()
     }
 
-    fun getImage() {
+    private fun getImage() {
         homeSharedViewModel.imageUrlLiveData.value?.let {
             val url = it.stabilityai?.items?.get(0)?.imageResourceUrl
-            setImage(url)
+            val imageBase64 = it.stabilityai?.items?.get(0)?.image
+            viewModel.currentImageUrl = url
+            viewModel.currentImageBase64 = imageBase64
+            setImageByUrl()
         }
     }
 
-    fun setImage(url: String?) {
-        binding?.ivImage?.load(url)
+    private fun setImageByUrl() {
+        binding?.ivImage?.load(viewModel.currentImageUrl)
+        /*  binding?.ivImage?.loadImageWithCallback(url, {
+              showShortToast("image loading")
+          }, {
+              showShortToast("image success")
+          }, {
+              showShortToast("image error")
+          })*/
     }
 
     private fun initClickListeners() {
         binding?.apply {
-
-
             //generate image listener
             btnGenerate.setOnClickListener {
                 if (checkEditTextValue() == false) {
@@ -93,13 +106,16 @@ class ResultFragment : Fragment() {
                     binding?.root?.showSnackBar("Invalid text")
                 }
             }
+
+            btnDownload?.setOnClickListener {
+                downloadImage()
+            }
+
 //back listener
             btnBack.setOnClickListener {
                 findNavController().popBackStack()
             }
         }
-
-
     }
 
     private fun checkEditTextValue(): Boolean? {
@@ -116,8 +132,8 @@ class ResultFragment : Fragment() {
                 }
 
                 is Resource.Success -> {
-                    val url = response?.data?.openai?.items?.get(0)?.imageResourceUrl
-                    onImageGenerationSuccess(url)
+                    activity?.showShortToast("success while generating image")
+                    onImageGenerationSuccess(response.data)
                 }
 
                 is Resource.UnSuccess -> {
@@ -129,11 +145,25 @@ class ResultFragment : Fragment() {
                 }
             }
         }
-
     }
 
-    private fun onImageGenerationSuccess(imageUrl: String?) {
-        setImage(imageUrl)
+    private fun onImageGenerationSuccess(imageResponse: ImageResponse?) {
+
+        val imageUrl = imageResponse?.stabilityai?.items?.get(0)?.imageResourceUrl
+        val image64 = imageResponse?.stabilityai?.items?.get(0)?.image
+        currentImage = imageUrl
+        currentImageBase64 = image64
+        setImageByUrl()
+    }
+
+    private fun downloadImage() {
+        val isDownloaded = activity?.saveBase64Image(viewModel.currentImageBase64, "girl")
+        if (isDownloaded == true) {
+            showShortToast("successfully downloaded")
+        } else {
+            showShortToast("downloading failed")
+        }
+
     }
 
 }
