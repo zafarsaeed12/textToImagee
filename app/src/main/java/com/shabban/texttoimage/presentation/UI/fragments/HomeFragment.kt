@@ -1,7 +1,6 @@
 package com.shabban.texttoimage.presentation.UI.fragments
 
 import android.app.Dialog
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
@@ -12,34 +11,42 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
 import android.view.WindowManager
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import com.shabban.texttoimage.Common.Constant
 import com.shabban.texttoimage.Common.UiState
 import com.shabban.texttoimage.Common.showShortToast
-import com.shabban.texttoimage.Data.repository.imagesRepostryImpl
+import com.shabban.texttoimage.Common.showSnackBar
+import com.shabban.texttoimage.Data.model.request.ImageRequest
+import com.shabban.texttoimage.Domain.GenerateImageUsecase
 import com.shabban.texttoimage.R
+import com.shabban.texttoimage.Utils.Resource
 import com.shabban.texttoimage.databinding.FragmentHomeBinding
 import com.shabban.texttoimage.presentation.Interfaces.OnItemClick
 import com.shabban.texttoimage.presentation.adaptors.RecyclerviewAdapter
-import com.shabban.texttoimage.presentation.viewmodels.ChatViewModelFactory
 import com.shabban.texttoimage.presentation.models.Modelimages
+import com.shabban.texttoimage.presentation.viewmodels.HomeFragmentViewModel
+import com.shabban.texttoimage.presentation.viewmodels.HomeSharedViewModel
 import com.shabban.texttoimage.presentation.viewmodels.imagesViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Objects
+import javax.inject.Inject
 
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), OnItemClick {
+    val TAG = "HomeFragmentTAG"
     lateinit var binding: FragmentHomeBinding
     lateinit var recyclerviewAdapter: RecyclerviewAdapter
     lateinit var chatViewModel: imagesViewModel
@@ -47,7 +54,12 @@ class HomeFragment : Fragment(), OnItemClick {
     private val handler = Handler(Looper.getMainLooper())
     private val progressUpdateInterval = 100L // Interval in milliseconds
     private val progressMax = 100
-     var codeDialog : Dialog? = null
+    var codeDialog: Dialog? = null
+    private val viewModel: HomeFragmentViewModel by viewModels()
+    private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
+
+    @Inject
+    lateinit var generateImageUsecase: GenerateImageUsecase
 
 
     override fun onCreateView(
@@ -66,10 +78,6 @@ class HomeFragment : Fragment(), OnItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         codeDialog = Dialog(requireContext())
-        chatViewModel = ViewModelProvider(
-            this, ChatViewModelFactory(imagesRepostryImpl())
-        )[imagesViewModel::class.java]
-        initObservers()
         val bottomSheetFragment = ItemListDialogFragment()
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         recyclerviewAdapter = RecyclerviewAdapter(requireContext(), this)
@@ -79,11 +87,33 @@ class HomeFragment : Fragment(), OnItemClick {
         binding.rvHome.adapter = recyclerviewAdapter
         recyclerviewAdapter.setData(images)
         binding.btnGenrate.setOnClickListener {
-            startProgress()
-//            findNavController().navigate(R.id.resultFragment)
 
+            if (checkEditTextValue() == false) {
+                val inputText = binding?.etInput?.text.toString()
+
+                lifecycleScope.launch {
+                    generateImage(
+                        ImageRequest(
+                            false,
+                            Constant.EMPTY_STRING,
+                            Constant.STABILITY_AI_PROVIDER,
+                            inputText,
+                            Constant.RESOLUTION,
+                            1
+                        )
+                    )
+                }
+            } else {
+                binding?.root?.showSnackBar("Invalid text")
+            }
         }
     }
+
+    private fun checkEditTextValue(): Boolean? {
+        return binding?.etInput?.text?.toString()?.isEmpty()
+
+    }
+
 
     override fun itemclick(position: Int) {
         TODO("Not yet implemented")
@@ -188,7 +218,7 @@ class HomeFragment : Fragment(), OnItemClick {
                 } else {
                     // Progress completed
                     codeDialog?.dismiss()
-                    findNavController().navigate(R.id.resultFragment)
+                    //   findNavController().navigate(R.id.resultFragment)
 
 
                 }
@@ -198,5 +228,31 @@ class HomeFragment : Fragment(), OnItemClick {
         })
     }
 
+
+    private suspend fun generateImage(imageRequest: ImageRequest) {
+
+        viewModel.generateImage(imageRequest).collect { response ->
+            when (response) {
+                is Resource.Loading -> {
+                    startProgress()
+                }
+
+                is Resource.Success -> {
+                    response?.data?.let { homeSharedViewModel.setImageData(it) }
+                    findNavController().navigate(R.id.resultFragment)
+                    activity?.showShortToast("Success while generating image")
+                }
+
+                is Resource.UnSuccess -> {
+                    activity?.showShortToast("Unsiccess ${response.unSuccessMessage}")
+                }
+
+                is Resource.Error -> {
+                    activity?.showShortToast("Error ${response.errorMessage}")
+                }
+            }
+        }
+
+    }
 
 }

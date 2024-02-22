@@ -13,7 +13,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shabban.texttoimage.presentation.UI.activities.MainActivity
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.databinding.FragmentPremiumScreenBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PremiumScreen : Fragment() {
 	lateinit var binding : FragmentPremiumScreenBinding
 	

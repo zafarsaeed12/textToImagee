@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home_frag">
 
     <fragment
         android:id="@+id/resultFragment"
@@ -11,29 +11,29 @@
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_libraryFragment"
-            app:destination="@id/libraryFragment" />
+            app:destination="@id/lib_frag" />
         <action
             android:id="@+id/toResultFragment"
             app:destination="@id/resultFragment" />
 
     </fragment>
     <fragment
-        android:id="@+id/libraryFragment"
+        android:id="@+id/lib_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_library" >
         <action
             android:id="@+id/action_libraryFragment_to_accountFragment"
-            app:destination="@id/accountFragment" />
+            app:destination="@id/account_frag" />
     </fragment>
     <fragment
-        android:id="@+id/accountFragment"
+        android:id="@+id/account_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" >

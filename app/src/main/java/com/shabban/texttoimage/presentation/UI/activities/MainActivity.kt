@@ -9,7 +9,9 @@ import com.shabban.texttoimage.databinding.ActivityMainBinding
 import com.shabban.texttoimage.presentation.UI.fragments.AccountFragment
 import com.shabban.texttoimage.presentation.UI.fragments.HomeFragment
 import com.shabban.texttoimage.presentation.UI.fragments.LibraryFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 	var binding : ActivityMainBinding? = null
 	

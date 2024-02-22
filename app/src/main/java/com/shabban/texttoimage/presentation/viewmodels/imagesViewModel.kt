@@ -7,7 +7,7 @@ import com.shabban.texttoimage.Common.ResponseState
 import com.shabban.texttoimage.Common.UiState
 import com.shabban.texttoimage.Data.model.request.ImageRequest
 import com.shabban.texttoimage.Data.model.response.ImageResponse
-import com.shabban.texttoimage.Data.repository.imagesRepositry
+import com.shabban.texttoimage.Data.repository.RemoteRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -15,15 +15,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
 
-class imagesViewModel(val imagesRepositry: imagesRepositry) : ViewModel() {
+class imagesViewModel(val RemoteRepo: RemoteRepo) : ViewModel() {
     private var _chatState = MutableStateFlow<UiState<ImageResponse>>(UiState.Loading)
     val chatState = _chatState.asStateFlow()
 
 
     fun getresponse(boolean: Boolean) {
-        val request = ImageRequest(boolean,1,"null","null",true,true,"null")
+      /*  val request = ImageRequest(boolean,1,"null","null",true,true,"null")
 
-        imagesRepositry.getImagesResponse(request).onEach {
+        RemoteRepo.generateImage(request).onEach {
 
             when (it) {
                 is ResponseState.Error -> _chatState.value = UiState.Error(it.throwable)
@@ -39,13 +39,13 @@ class imagesViewModel(val imagesRepositry: imagesRepositry) : ViewModel() {
             )
         }.launchIn(
             viewModelScope
-        )
+        )*/
     }
 
 
 }
 
-class ChatViewModelFactory constructor(private val repository: imagesRepositry): ViewModelProvider.Factory {
+class ChatViewModelFactory constructor(private val repository: RemoteRepo): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(imagesViewModel::class.java!!)) {
