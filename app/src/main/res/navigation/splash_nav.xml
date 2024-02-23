@@ -39,6 +39,7 @@
         <action
             android:id="@+id/action_parentFragment_to_profileViewFragment2"
             app:destination="@id/profileViewFragment2" />
+
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

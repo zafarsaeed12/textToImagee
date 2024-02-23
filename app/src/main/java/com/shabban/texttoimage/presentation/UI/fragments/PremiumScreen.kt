@@ -46,6 +46,38 @@ class PremiumScreen : Fragment() {
 		binding.skip.setOnClickListener {
 			findNavController().navigate(R.id.parentFragment)
 		}
+		binding.weeklyCheck.setImageResource(R.drawable.ic_check)
+		binding.weeklyPremium.setBackgroundResource(R.drawable.bg_cardss)
+		binding.weeklyPremium.setOnClickListener {
+			binding.weeklyCheck.setImageResource(R.drawable.ic_check)
+			binding.weeklyPremium.setBackgroundResource(R.drawable.bg_cardss)
+			binding.yearlyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.yearlyPremium.setBackgroundResource(R.drawable.bg_card)
+			binding.monthlyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.monthlyPremium.setBackgroundResource(R.drawable.bg_card)
+
+		}
+		binding.monthlyPremium.setOnClickListener {
+			binding.monthlyCheck.setImageResource(R.drawable.ic_check)
+			binding.monthlyPremium.setBackgroundResource(R.drawable.bg_cardss)
+			binding.weeklyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.weeklyPremium.setBackgroundResource(R.drawable.bg_card)
+			binding.yearlyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.yearlyPremium.setBackgroundResource(R.drawable.bg_card)
+
+
+		}
+		binding.yearlyPremium.setOnClickListener {
+			binding.yearlyCheck.setImageResource(R.drawable.ic_check)
+			binding.yearlyPremium.setBackgroundResource(R.drawable.bg_cardss)
+			binding.monthlyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.monthlyPremium.setBackgroundResource(R.drawable.bg_card)
+			binding.weeklyCheck.setImageResource(R.drawable.ic_uncheck)
+			binding.weeklyPremium.setBackgroundResource(R.drawable.bg_card)
+
+		}
+
+
 		val bottomView = (requireActivity() as MainActivity).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 		bottomView?.visibility = View.GONE
 		

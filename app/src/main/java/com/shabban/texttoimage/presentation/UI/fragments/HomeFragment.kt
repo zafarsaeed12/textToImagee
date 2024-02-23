@@ -1,5 +1,6 @@
 package com.shabban.texttoimage.presentation.UI.fragments
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.net.ConnectivityManager
@@ -12,7 +13,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -22,6 +26,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.shabban.texttoimage.Common.Constant
 import com.shabban.texttoimage.Common.UiState
@@ -79,13 +84,19 @@ class HomeFragment : Fragment(), OnItemClick {
         super.onViewCreated(view, savedInstanceState)
         codeDialog = Dialog(requireContext())
         val bottomSheetFragment = ItemListDialogFragment()
-        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+//        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         recyclerviewAdapter = RecyclerviewAdapter(requireContext(), this)
         getitemlist()
         binding.rvHome.layoutManager =
             LinearLayoutManager(context)
         binding.rvHome.adapter = recyclerviewAdapter
         recyclerviewAdapter.setData(images)
+        binding.btnPremium.setOnClickListener {
+            Toast.makeText(context, "primium screen", Toast.LENGTH_SHORT).show()
+
+//            findNavController().navigate(R.id.homeToPremmiumScreen)
+        }
+
         binding.btnGenrate.setOnClickListener {
 
             if (checkEditTextValue() == false) {
@@ -106,6 +117,16 @@ class HomeFragment : Fragment(), OnItemClick {
             } else {
                 binding?.root?.showSnackBar("Invalid text")
             }
+        }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        // Notify the activity that this fragment will handle the back press event
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            Toast.makeText(context, "exit dailuge", Toast.LENGTH_SHORT).show()
+            exittDailuge()
         }
     }
 
@@ -208,10 +229,10 @@ class HomeFragment : Fragment(), OnItemClick {
                         ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
                     )
                     val progressTv: TextView? = codeDialog?.findViewById(R.id.progressTv)
-                    val progressBar: CircularProgressBar? =
+                    val progressBar: CircularProgressIndicator? =
                         codeDialog?.findViewById(R.id.downloadingProgress)
                     progressTv?.text = "$counter%"
-                    progressBar?.progress = counter.toFloat()
+                    progressBar?.progress = counter
                     counter++
                     handler.postDelayed(this, progressUpdateInterval)
                     codeDialog?.show()
@@ -226,6 +247,27 @@ class HomeFragment : Fragment(), OnItemClick {
             }
 
         })
+    }
+
+    private fun exittDailuge(): AlertDialog? {
+        val builder = AlertDialog.Builder(requireActivity())
+        val inflater = requireActivity().layoutInflater
+        val view = inflater.inflate(R.layout. exitdailuge, null)
+        val cancelbutton: Button? = view?.findViewById(R.id.cancelButton)
+        val yesbutton: Button? = view?.findViewById(R.id.yesButton)
+        cancelbutton?.setOnClickListener {
+
+
+        }
+        yesbutton?.setOnClickListener {
+            requireActivity().finishAffinity()
+        }
+
+
+        builder.setView(view)
+        return builder.create()
+
+
     }
 
 

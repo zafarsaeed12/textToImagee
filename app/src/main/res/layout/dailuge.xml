@@ -19,26 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/downloadingProgress"
-        android:layout_width="@dimen/_200sdp"
-        android:layout_height="@dimen/_200sdp"
-        android:elevation="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorSize="260dp"
         android:layout_marginTop="@dimen/_19sdp"
-        android:outlineAmbientShadowColor="@color/white"
-        android:outlineSpotShadowColor="@color/white"
-        app:cpb_background_progressbar_width="15dp"
-        app:cpb_progress="100"
-        app:cpb_progress_direction="to_right"
-        app:cpb_progressbar_color="@color/white"
-        app:cpb_progressbar_color_end="#CA8BF6"
-        app:cpb_progressbar_color_start="#9869B8"
-        app:cpb_progressbar_width="@dimen/_19sdp"
-        app:cpb_round_border="true"
+        app:indicatorColor="#CA8BF6"
+        app:trackColor="#D9D9D9"
+        app:trackCornerRadius="18dp"
+        app:trackThickness="22dp"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+
 
 
     <TextView
