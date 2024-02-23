@@ -14,7 +14,7 @@
         android:id="@+id/home_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_libraryFragment"
             app:destination="@id/lib_frag" />
@@ -27,7 +27,7 @@
         android:id="@+id/lib_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.LibraryFragment"
         android:label="fragment_library"
-        tools:layout="@layout/fragment_library" >
+        tools:layout="@layout/fragment_library">
         <action
             android:id="@+id/action_libraryFragment_to_accountFragment"
             app:destination="@id/account_frag" />
@@ -36,10 +36,8 @@
         android:id="@+id/account_frag"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.AccountFragment"
         android:label="fragment_account"
-        tools:layout="@layout/fragment_account" >
-        <action
-            android:id="@+id/action_accountFragment_to_profileViewFragment"
-            app:destination="@id/profileViewFragment" />
+        tools:layout="@layout/fragment_account">
+
     </fragment>
     <fragment
         android:id="@+id/profileViewFragment"

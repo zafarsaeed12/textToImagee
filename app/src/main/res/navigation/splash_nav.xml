@@ -14,17 +14,23 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action
-            android:id="@+id/action_splashScreen_to_premiumScreen"
-            app:destination="@id/premiumScreen" />
+            android:id="@+id/toParentFragment"
+            app:destination="@id/parentFragment" />
     </fragment>
     <fragment
         android:id="@+id/premiumScreen"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.PremiumScreen"
         android:label="fragment_premium_screen"
         tools:layout="@layout/fragment_premium_screen" >
-        <action
-            android:id="@+id/action_premiumScreen_to_homeFragment"
-            app:destination="@id/parentFragment" />
+
+<!--        <argument
+            android:name="fromHome"
+            android:defaultValue="" />-->
+
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="https://premiumScreen" />
+
     </fragment>
 
 
@@ -37,8 +43,9 @@
             android:id="@+id/toResultFragment"
             app:destination="@id/resultFragment" />
         <action
-            android:id="@+id/action_parentFragment_to_profileViewFragment2"
-            app:destination="@id/profileViewFragment2" />
+            android:id="@+id/toProfileFragment"
+            app:destination="@id/profileViewFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -46,7 +53,7 @@
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
     <fragment
-        android:id="@+id/profileViewFragment2"
+        android:id="@+id/profileViewFragment"
         android:name="com.shabban.texttoimage.presentation.UI.fragments.ProfileViewFragment"
         android:label="fragment_profile_view"
         tools:layout="@layout/fragment_profile_view" />

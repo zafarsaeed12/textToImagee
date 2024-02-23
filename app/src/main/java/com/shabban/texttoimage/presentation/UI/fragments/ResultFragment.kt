@@ -1,9 +1,12 @@
 package com.shabban.texttoimage.presentation.UI.fragments
 
+import android.Manifest
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -12,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shabban.texttoimage.Common.Constant
+import com.shabban.texttoimage.Common.isWriteStoragePermissionGranted
 import com.shabban.texttoimage.Common.saveBase64Image
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar
@@ -34,8 +38,17 @@ class ResultFragment : Fragment() {
     private val viewModel: ResultFragmentViewModel by viewModels()
     val TAG = "ResultFragmentTAG"
 
-    var currentImage : String? = Constant.EMPTY_STRING
-    var currentImageBase64 : String?  = Constant.EMPTY_STRING
+    var currentImage: String? = Constant.EMPTY_STRING
+    var currentImageBase64: String? = Constant.EMPTY_STRING
+
+    val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+
+            } else {
+
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +121,17 @@ class ResultFragment : Fragment() {
             }
 
             btnDownload?.setOnClickListener {
-                downloadImage()
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                    if (activity?.isWriteStoragePermissionGranted() == false) {
+                        permissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    } else {
+                        downloadImage()
+                    }
+                }else{
+                    downloadImage()
+                }
+
+
             }
 
 //back listener

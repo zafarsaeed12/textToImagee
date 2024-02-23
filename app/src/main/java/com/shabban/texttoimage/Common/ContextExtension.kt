@@ -2,10 +2,12 @@ package com.shabban.texttoimage.Common
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Base64
+import androidx.core.content.ContextCompat
 import java.io.File
 import java.io.FileOutputStream
 
@@ -75,4 +77,11 @@ fun Context.saveBase64Image(base64Image: String?, fileName: String): Boolean {
         return false
     }
     return false
+}
+
+fun Context.isWriteStoragePermissionGranted(): Boolean {
+    return ContextCompat.checkSelfPermission(
+        this,
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 }
