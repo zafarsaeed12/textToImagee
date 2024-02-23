@@ -2,12 +2,12 @@ package com.shabban.texttoimage.presentation.UI.fragments
 
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shabban.texttoimage.R
@@ -15,63 +15,62 @@ import com.shabban.texttoimage.databinding.FragmentSplashScreenBinding
 
 
 class SplashScreen : Fragment() {
-	lateinit var binding : FragmentSplashScreenBinding
-	
-	
-	override fun onCreate(savedInstanceState : Bundle?) {
-		super.onCreate(savedInstanceState)
-		
-	}
-	
-	override fun onCreateView(
-		inflater : LayoutInflater, container : ViewGroup?,
-		savedInstanceState : Bundle?
-	) : View? {
-		binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-		setStatusBarColor(R.color.profileclor)
-		
-		changeStatusBarTextColor(true)
-		binding.btnGetstarted.setOnClickListener {
-			
-			findNavController().navigate(R.id.premiumScreen)
-			
-		}
-		val bottomView = requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-		bottomView?.visibility = View.GONE
-		
-		
-		
-		return binding.root
-	}
-	
-	
-	private fun changeStatusBarTextColor(light: Boolean) {
-		activity?.window?.let { window ->
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				var flags = window.decorView.systemUiVisibility
-				flags = if (light) {
-					flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-				} else {
-					flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-				}
-				window.decorView.systemUiVisibility = flags
-			}
-		}
-	}
-	private fun setStatusBarColor(colorResId: Int) {
-		activity?.window?.let { window ->
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-				window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-				window.statusBarColor = ContextCompat.getColor(requireContext(), colorResId)
-			}
-		}
-	}
-	
-	
-	
-	
-	
-	
+    lateinit var binding: FragmentSplashScreenBinding
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSplashScreenBinding.inflate(inflater, container, false)
+        setStatusBarColor(R.color.profileclor)
+
+        changeStatusBarTextColor(true)
+        binding.btnGetstarted.setOnClickListener {
+
+            // findNavController().navigate(Deeplinks.PREMIUM_SCREEN_DEEPLINK.toUri())
+            findNavController().navigate(R.id.toParentFragment)
+
+        }
+        val bottomView =
+            requireActivity().findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        bottomView?.visibility = View.GONE
+
+
+
+        return binding.root
+    }
+
+
+    private fun changeStatusBarTextColor(light: Boolean) {
+        activity?.window?.let { window ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                var flags = window.decorView.systemUiVisibility
+                flags = if (light) {
+                    flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                } else {
+                    flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                }
+                window.decorView.systemUiVisibility = flags
+            }
+        }
+    }
+
+    private fun setStatusBarColor(colorResId: Int) {
+        activity?.window?.let { window ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+                window.statusBarColor = ContextCompat.getColor(requireContext(), colorResId)
+            }
+        }
+    }
+
+
 }
 
 //package com.shabban.texttoimage.presentation.adaptors

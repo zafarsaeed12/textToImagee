@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.shabban.texttoimage.Common.Deeplinks
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.databinding.FragmentParentBinding
+import com.shabban.texttoimage.presentation.UI.activities.MainActivity
 
 
 class ParentFragment : Fragment() {
@@ -34,6 +38,10 @@ class ParentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (MainActivity.firstTime) {
+            findNavController().navigate(Deeplinks.PREMIUM_SCREEN_DEEPLINK.toUri())
+            MainActivity.firstTime = false
+        }
 
         val navView: BottomNavigationView? = binding?.bottomNavigationView
 

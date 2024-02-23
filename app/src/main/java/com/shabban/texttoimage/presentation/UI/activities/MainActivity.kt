@@ -14,8 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 	var binding : ActivityMainBinding? = null
-	
-	
+
+
+	companion object{
+		var firstTime = true
+	}
 	override fun onCreate(savedInstanceState : Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = ActivityMainBinding.inflate(layoutInflater)

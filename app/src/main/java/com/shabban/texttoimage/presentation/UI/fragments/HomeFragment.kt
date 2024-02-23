@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -29,6 +30,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.shabban.texttoimage.Common.Constant
+import com.shabban.texttoimage.Common.Deeplinks
 import com.shabban.texttoimage.Common.UiState
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar

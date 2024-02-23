@@ -7,6 +7,8 @@ object Constant {
 	const val OPEN_AI_PROVIDER = "openai"
     const val STABILITY_AI_PROVIDER ="stabilityai"
 	const val EMPTY_STRING = ""
+    const val DIRECTORY_NAME = "Ai Images"
+
 
 
 }
