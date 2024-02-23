@@ -98,95 +98,297 @@
         android:layout_marginStart="@dimen/_12sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/poppinsbold"
-        android:text="@string/salect_style"
+        android:text="@string/salect_number"
         android:textColor="@color/black"
         android:textSize="@dimen/_18sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dropOptionlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
-        <HorizontalScrollView
+        <TextView
+            android:id="@+id/selected_item_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="16dp"
+            android:text="1"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
+        <ImageView
+            android:id="@+id/btnDropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:src="@drawable/ic_down"
+            app:layout_constraintEnd_toEndOf="@+id/selected_item_text"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/btnDropup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:visibility="gone"
+            android:src="@drawable/ic_up"
+            app:layout_constraintEnd_toEndOf="@+id/selected_item_text"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/dropdown_options_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_dropdown"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selected_item_text">
+
+            <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_buttons"
+                android:fontFamily="@font/poppinslight"
+                android:text="1"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                app:backgroundTint="@null" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:textSize="@dimen/_14sdp"
-                    android:fontFamily="@font/poppinslight"
-                    android:background="@drawable/bg_buttons"
-                    android:textColor="@color/black"
-                    android:text="@string/All"
-                    app:backgroundTint="@null"
-                    />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_card"
+                android:fontFamily="@font/poppinslight"
+                android:text="2"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                app:backgroundTint="@null" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
-                    android:fontFamily="@font/poppinslight"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/bg_home2"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:text="@string/people"
-                    app:backgroundTint="@null"
-                    />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_card"
+                android:fontFamily="@font/poppinslight"
+                android:text="3"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                app:backgroundTint="@null" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
-                    android:fontFamily="@font/poppinslight"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/bg_home2"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:text="@string/technology"
-                    app:backgroundTint="@null"
-                    />
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/bg_card"
+                android:fontFamily="@font/poppinslight"
+                android:text="4"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_14sdp"
+                app:backgroundTint="@null" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/_14sdp"
-                    android:fontFamily="@font/poppinslight"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:background="@drawable/bg_home2"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:textColor="@color/black"
-                    android:text="@string/anim"
-                    app:backgroundTint="@null"
-                    />
-            </LinearLayout>
-        </HorizontalScrollView>
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_5sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/poppinssemibold"
+        android:text="@string/image_size"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintBottom_toTopOf="@id/btn_genrate"
-        tools:listitem="@layout/rv_items" />
+        app:layout_constraintTop_toBottomOf="@+id/dropOptionlayout" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_buttons"
+            android:fontFamily="@font/poppinslight"
+            android:text="@string/_1x"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_card"
+            android:fontFamily="@font/poppinslight"
+            android:text="@string/_2x"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@+id/materialButton9"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialButton5"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_premium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:src="@drawable/ic_premium_home"
+            app:layout_constraintBottom_toBottomOf="@+id/materialButton6"
+            app:layout_constraintEnd_toEndOf="@+id/materialButton6"
+            app:layout_constraintTop_toTopOf="@id/materialButton6" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/materialButton9"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_card"
+            android:fontFamily="@font/poppinslight"
+            android:text="@string/_3x"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialButton6"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:src="@drawable/ic_premium_home"
+            app:layout_constraintBottom_toBottomOf="@+id/materialButton9"
+            app:layout_constraintEnd_toEndOf="@+id/materialButton9"
+            app:layout_constraintTop_toTopOf="@id/materialButton9" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linearLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="@dimen/_12sdp"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/textView7">-->
+
+    <!--        <HorizontalScrollView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent">-->
+
+    <!--            <LinearLayout-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="match_parent">-->
+
+    <!--                <com.google.android.material.button.MaterialButton-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_margin="@dimen/_5sdp"-->
+    <!--                    android:textSize="@dimen/_14sdp"-->
+    <!--                    android:fontFamily="@font/poppinslight"-->
+    <!--                    android:background="@drawable/bg_buttons"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:text="@string/All"-->
+    <!--                    app:backgroundTint="@null"-->
+    <!--                    />-->
+
+    <!--                <com.google.android.material.button.MaterialButton-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:textSize="@dimen/_14sdp"-->
+    <!--                    android:fontFamily="@font/poppinslight"-->
+    <!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+    <!--                    android:background="@drawable/bg_home2"-->
+    <!--                    android:layout_margin="@dimen/_5sdp"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:text="@string/people"-->
+    <!--                    app:backgroundTint="@null"-->
+    <!--                    />-->
+
+    <!--                <com.google.android.material.button.MaterialButton-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:textSize="@dimen/_14sdp"-->
+    <!--                    android:fontFamily="@font/poppinslight"-->
+    <!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+    <!--                    android:background="@drawable/bg_home2"-->
+    <!--                    android:layout_margin="@dimen/_5sdp"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:text="@string/technology"-->
+    <!--                    app:backgroundTint="@null"-->
+    <!--                    />-->
+
+    <!--                <com.google.android.material.button.MaterialButton-->
+    <!--                    android:layout_width="wrap_content"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:textSize="@dimen/_14sdp"-->
+    <!--                    android:fontFamily="@font/poppinslight"-->
+    <!--                    android:layout_marginBottom="@dimen/_5sdp"-->
+    <!--                    android:background="@drawable/bg_home2"-->
+    <!--                    android:layout_margin="@dimen/_5sdp"-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:text="@string/anim"-->
+    <!--                    app:backgroundTint="@null"-->
+    <!--                    />-->
+    <!--            </LinearLayout>-->
+    <!--        </HorizontalScrollView>-->
+
+    <!--    </LinearLayout>-->
+
+    <!--    <androidx.recyclerview.widget.RecyclerView-->
+    <!--        android:id="@+id/rv_home"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_marginTop="@dimen/_5sdp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/btn_genrate"-->
+    <!--        tools:listitem="@layout/rv_items" />-->
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_genrate"

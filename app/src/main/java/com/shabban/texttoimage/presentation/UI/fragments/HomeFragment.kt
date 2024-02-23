@@ -3,6 +3,8 @@ package com.shabban.texttoimage.presentation.UI.fragments
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
@@ -28,9 +31,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.shabban.texttoimage.Common.Constant
-import com.shabban.texttoimage.Common.Deeplinks
 import com.shabban.texttoimage.Common.UiState
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar
@@ -62,6 +63,8 @@ class HomeFragment : Fragment(), OnItemClick {
     private val progressUpdateInterval = 100L // Interval in milliseconds
     private val progressMax = 100
     var codeDialog: Dialog? = null
+    var dialog: Dialog? = null
+
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
 
@@ -89,15 +92,27 @@ class HomeFragment : Fragment(), OnItemClick {
 //        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         recyclerviewAdapter = RecyclerviewAdapter(requireContext(), this)
         getitemlist()
-        binding.rvHome.layoutManager =
-            LinearLayoutManager(context)
-        binding.rvHome.adapter = recyclerviewAdapter
-        recyclerviewAdapter.setData(images)
+//        binding.rvHome.layoutManager =
+//            LinearLayoutManager(context)
+//        binding.rvHome.adapter = recyclerviewAdapter
+//        recyclerviewAdapter.setData(images)
         binding.btnPremium.setOnClickListener {
             Toast.makeText(context, "primium screen", Toast.LENGTH_SHORT).show()
 
 //            findNavController().navigate(R.id.homeToPremmiumScreen)
         }
+        binding.btnDropDown.setOnClickListener {
+            binding.dropdownOptionsLayout.visibility = View.VISIBLE
+            binding.btnDropDown.visibility=View.GONE
+            binding.btnDropup.visibility=View.VISIBLE
+
+        }
+        binding.btnDropup.setOnClickListener {
+            binding.dropdownOptionsLayout.visibility = View.GONE
+            binding.btnDropDown.visibility=View.VISIBLE
+            binding.btnDropup.visibility=View.GONE
+        }
+
 
         binding.btnGenrate.setOnClickListener {
 
@@ -128,7 +143,7 @@ class HomeFragment : Fragment(), OnItemClick {
         // Notify the activity that this fragment will handle the back press event
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             Toast.makeText(context, "exit dailuge", Toast.LENGTH_SHORT).show()
-            exittDailuge()
+            exitDialog()
         }
     }
 
@@ -251,25 +266,26 @@ class HomeFragment : Fragment(), OnItemClick {
         })
     }
 
-    private fun exittDailuge(): AlertDialog? {
-        val builder = AlertDialog.Builder(requireActivity())
+    private fun exitDialog() {
         val inflater = requireActivity().layoutInflater
-        val view = inflater.inflate(R.layout. exitdailuge, null)
+        val view = inflater.inflate(R.layout.exitdailuge, null)
+        dialog = Dialog(requireContext())
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog!!.setCancelable(true)
+        dialog!!.setContentView(view)
+        dialog!!.setCanceledOnTouchOutside(false)
+        dialog!!.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog!!.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT
+        )
         val cancelbutton: Button? = view?.findViewById(R.id.cancelButton)
         val yesbutton: Button? = view?.findViewById(R.id.yesButton)
-        cancelbutton?.setOnClickListener {
-
-
-        }
+        cancelbutton?.setOnClickListener { dialog!!.dismiss() }
         yesbutton?.setOnClickListener {
+            dialog!!.dismiss()
             requireActivity().finishAffinity()
         }
-
-
-        builder.setView(view)
-        return builder.create()
-
-
+        dialog!!.show()
     }
 
 

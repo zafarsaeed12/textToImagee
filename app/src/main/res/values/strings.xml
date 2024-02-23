@@ -64,4 +64,10 @@
     <string name="cancel">Cancel</string>
     <string name="percentage">0%</string>
     <string name="yearly_premium">Yearly</string>
+    <string name="share_us">Share App</string>
+    <string name="salect_number">Salect Number of Images</string>
+    <string name="image_size">Salect Image Size</string>
+    <string name="_1x">1x</string>
+    <string name="_2x">2x</string>
+    <string name="_3x">3x</string>
 </resources>
