@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -25,17 +24,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.shabban.texttoimage.Common.Constant
-import com.shabban.texttoimage.Common.Deeplinks
 import com.shabban.texttoimage.Common.UiState
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar
 import com.shabban.texttoimage.Data.model.request.ImageRequest
-import com.shabban.texttoimage.Domain.GenerateImageUsecase
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.Utils.Resource
 import com.shabban.texttoimage.databinding.FragmentHomeBinding
 import com.shabban.texttoimage.presentation.Interfaces.OnItemClick
-import com.shabban.texttoimage.presentation.adaptors.RecyclerviewAdapter
 import com.shabban.texttoimage.presentation.models.Modelimages
 import com.shabban.texttoimage.presentation.viewmodels.HomeFragmentViewModel
 import com.shabban.texttoimage.presentation.viewmodels.HomeSharedViewModel
@@ -43,14 +39,13 @@ import com.shabban.texttoimage.presentation.viewmodels.imagesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Objects
-import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), OnItemClick {
     val TAG = "HomeFragmentTAG"
     lateinit var binding: FragmentHomeBinding
-    lateinit var recyclerviewAdapter: RecyclerviewAdapter
+   // lateinit var recyclerviewAdapter: RecyclerviewAdapter
     lateinit var chatViewModel: imagesViewModel
     private var counter = 0
     private val handler = Handler(Looper.getMainLooper())
@@ -59,10 +54,6 @@ class HomeFragment : Fragment(), OnItemClick {
     var codeDialog: Dialog? = null
     private val viewModel: HomeFragmentViewModel by viewModels()
     private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
-
-    @Inject
-    lateinit var generateImageUsecase: GenerateImageUsecase
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,12 +73,12 @@ class HomeFragment : Fragment(), OnItemClick {
         codeDialog = Dialog(requireContext())
         val bottomSheetFragment = ItemListDialogFragment()
         //  bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-        recyclerviewAdapter = RecyclerviewAdapter(requireContext(), this)
+     //   recyclerviewAdapter = RecyclerviewAdapter(requireContext(), this)
         getitemlist()
-        binding.rvHome.layoutManager =
+      /*  binding.rvHome.layoutManager =
             LinearLayoutManager(context)
         binding.rvHome.adapter = recyclerviewAdapter
-        recyclerviewAdapter.setData(images)
+        recyclerviewAdapter.setData(images)*/
         binding.btnGenrate.setOnClickListener {
 
             if (checkEditTextValue() == false) {
@@ -246,7 +237,7 @@ class HomeFragment : Fragment(), OnItemClick {
                 }
 
                 is Resource.UnSuccess -> {
-                    activity?.showShortToast("Unsiccess ${response.unSuccessMessage}")
+                    activity?.showShortToast("Un success ${response.unSuccessMessage}")
                 }
 
                 is Resource.Error -> {

@@ -28,6 +28,9 @@
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/maincolorbg</item>
     </style>
+    <style name="ContentLoadingProgress">
+        <item name="colorAccent">@color/app_color</item>
+    </style>
 
 
 </resources>

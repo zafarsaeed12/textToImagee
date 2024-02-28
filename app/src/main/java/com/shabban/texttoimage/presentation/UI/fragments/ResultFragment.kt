@@ -12,15 +12,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import coil.load
+import coil.ImageLoader
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.shabban.texttoimage.Common.Constant
 import com.shabban.texttoimage.Common.isWriteStoragePermissionGranted
+import com.shabban.texttoimage.Common.loadImageWithProgress
 import com.shabban.texttoimage.Common.saveBase64Image
 import com.shabban.texttoimage.Common.showShortToast
 import com.shabban.texttoimage.Common.showSnackBar
 import com.shabban.texttoimage.Data.model.request.ImageRequest
 import com.shabban.texttoimage.Data.model.response.ImageResponse
+import com.shabban.texttoimage.Data.room.ImageEntity
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.Utils.Resource
 import com.shabban.texttoimage.databinding.FragmentResultBinding
@@ -28,18 +30,22 @@ import com.shabban.texttoimage.presentation.UI.activities.MainActivity
 import com.shabban.texttoimage.presentation.viewmodels.HomeSharedViewModel
 import com.shabban.texttoimage.presentation.viewmodels.ResultFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class ResultFragment : Fragment() {
-    lateinit var binding: FragmentResultBinding
     private val homeSharedViewModel: HomeSharedViewModel by activityViewModels()
     private val viewModel: ResultFragmentViewModel by viewModels()
     val TAG = "ResultFragmentTAG"
 
-    var currentImage: String? = Constant.EMPTY_STRING
-    var currentImageBase64: String? = Constant.EMPTY_STRING
+    private var currentImageUrl: String? = Constant.EMPTY_STRING
+    private var currentImageBase64: String? = Constant.EMPTY_STRING
+
+    private val binding: FragmentResultBinding by lazy {
+        FragmentResultBinding.inflate(layoutInflater)
+    }
 
     val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -57,8 +63,7 @@ class ResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentResultBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root
 
     }
 
@@ -79,21 +84,22 @@ class ResultFragment : Fragment() {
         homeSharedViewModel.imageUrlLiveData.value?.let {
             val url = it.stabilityai?.items?.get(0)?.imageResourceUrl
             val imageBase64 = it.stabilityai?.items?.get(0)?.image
-            viewModel.currentImageUrl = url
-            viewModel.currentImageBase64 = imageBase64
+            currentImageUrl = url
+            currentImageBase64 = imageBase64
             setImageByUrl()
         }
     }
 
     private fun setImageByUrl() {
-        binding?.ivImage?.load(viewModel.currentImageUrl)
-        /*  binding?.ivImage?.loadImageWithCallback(url, {
-              showShortToast("image loading")
-          }, {
-              showShortToast("image success")
-          }, {
-              showShortToast("image error")
-          })*/
+        //binding?.ivImage?.load(currentImageUrl)
+        val imageLoader = ImageLoader.Builder(requireContext()).build()
+        binding?.progressBar?.let {
+            currentImageUrl?.let { it1 ->
+                binding?.ivImage?.loadImageWithProgress(
+                    it1, imageLoader,
+                    it, {}, {})
+            }
+        }
     }
 
     private fun initClickListeners() {
@@ -127,11 +133,15 @@ class ResultFragment : Fragment() {
                     } else {
                         downloadImage()
                     }
-                }else{
+                } else {
                     downloadImage()
                 }
 
 
+            }
+
+            btnSave.setOnClickListener {
+                handleSaveImage()
             }
 
 //back listener
@@ -171,12 +181,27 @@ class ResultFragment : Fragment() {
     }
 
     private fun onImageGenerationSuccess(imageResponse: ImageResponse?) {
-
         val imageUrl = imageResponse?.stabilityai?.items?.get(0)?.imageResourceUrl
         val image64 = imageResponse?.stabilityai?.items?.get(0)?.image
-        currentImage = imageUrl
+        currentImageUrl = imageUrl
         currentImageBase64 = image64
         setImageByUrl()
+    }
+
+    private fun handleSaveImage() {
+        if (currentImageUrl.isNullOrEmpty() || currentImageBase64.isNullOrEmpty()) {
+            showShortToast("Something went wrong while saving.")
+
+        } else {
+            val imageEntity = ImageEntity(
+                imageUrl = currentImageUrl, imageBase64 = currentImageBase64
+            )
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.saveImageToDB(imageEntity)
+            }
+            showShortToast("Image saved successfully")
+        }
+
     }
 
     private fun downloadImage() {

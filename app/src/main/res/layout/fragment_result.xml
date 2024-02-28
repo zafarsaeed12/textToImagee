@@ -46,13 +46,24 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_250sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:src="@drawable/ic_result_img"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/ivImage"
+        app:layout_constraintEnd_toEndOf="@id/ivImage"
+        app:layout_constraintStart_toStartOf="@id/ivImage"
+        app:layout_constraintTop_toTopOf="@id/ivImage"
+
+
+        />
+
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_12sdp"
@@ -72,7 +83,7 @@
         android:background="@drawable/bg_download"
         android:padding="@dimen/_4sdp"
         android:src="@drawable/ic_download"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintEnd_toStartOf="@+id/btnSave"
         app:layout_constraintTop_toBottomOf="@+id/ivImage" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

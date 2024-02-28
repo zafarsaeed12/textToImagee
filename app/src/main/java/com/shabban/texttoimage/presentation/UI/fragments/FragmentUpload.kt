@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.shabban.texttoimage.R
 import com.shabban.texttoimage.databinding.FragmentUploadBinding
 import com.shabban.texttoimage.presentation.Interfaces.OnItemClick
-import com.shabban.texttoimage.presentation.adaptors.RecyclerviewAdapter
 import com.shabban.texttoimage.presentation.adaptors.UploadsfilesAdapter
-import com.shabban.texttoimage.presentation.models.Modelimages
 
 class FragmentUpload : Fragment(), OnItemClick {
     lateinit var binding: FragmentUploadBinding

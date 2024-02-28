@@ -20,8 +20,11 @@ class GenerateImageUsecase @Inject constructor(
 
         remoteRepo.generateImage(imageRequest).subscribe({ response ->
             if (response.isSuccessful && response.body() != null) {
-                trySend(Resource.Success(response.body()))
-
+                if (response.body()?.stabilityai?.status.equals("fail")) {
+                    trySend(Resource.UnSuccess("Something went wrong, status failed."))
+                } else {
+                    trySend(Resource.Success(response.body()))
+                }
             } else {
                 val error = response?.body()?.stabilityai?.status
                 trySend(Resource.UnSuccess(error))

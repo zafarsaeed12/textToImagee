@@ -3,13 +3,16 @@ package com.shabban.texttoimage.presentation.viewmodels
 import androidx.lifecycle.ViewModel
 import com.shabban.texttoimage.Common.Constant
 import com.shabban.texttoimage.Data.model.request.ImageRequest
+import com.shabban.texttoimage.Data.room.ImageEntity
 import com.shabban.texttoimage.Domain.GenerateImageUsecase
+import com.shabban.texttoimage.Domain.db_use_case.InsertImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class ResultFragmentViewModel @Inject constructor(
-    private val generateImageUseCase: GenerateImageUsecase
+    private val generateImageUseCase: GenerateImageUsecase,
+    private val insertImageUseCase: InsertImageUseCase
 ) : ViewModel() {
 
     var currentImageUrl : String? = Constant.EMPTY_STRING
@@ -17,4 +20,8 @@ class ResultFragmentViewModel @Inject constructor(
 
     suspend fun generateImage(imageRequest: ImageRequest) =
         generateImageUseCase.execute(imageRequest)
+
+    suspend fun saveImageToDB(imageEntity: ImageEntity){
+        insertImageUseCase.insertImage(imageEntity)
+    }
 }

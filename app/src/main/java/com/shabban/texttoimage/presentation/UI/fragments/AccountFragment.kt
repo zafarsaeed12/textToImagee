@@ -37,15 +37,6 @@ class AccountFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.btnViewprofile.setOnClickListener {
-            findNavController().navigate(R.id.toProfileFragment)
-          /*  val navController = findNavController()
-            val mainNavHostFragment = childFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-            val mainNavController = mainNavHostFragment.navController
-            mainNavController.navigate(R.id.toProfileFragment)*/
-
-        }
     }
 
     private fun changeStatusBarTextColor(light: Boolean) {

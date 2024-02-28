@@ -185,7 +185,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintBottom_toTopOf="@id/btn_genrate"
-        tools:listitem="@layout/rv_items" />
+        tools:listitem="@layout/my_creation_item" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_genrate"
