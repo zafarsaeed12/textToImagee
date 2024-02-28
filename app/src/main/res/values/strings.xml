@@ -70,4 +70,5 @@
     <string name="_1x">1x</string>
     <string name="_2x">2x</string>
     <string name="_3x">3x</string>
+    <string name="size_salected">Image size salected is(256*256)</string>
 </resources>

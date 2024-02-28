@@ -147,72 +147,77 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
-            android:id="@+id/dropdown_options_layout"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/dropdown_options_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/bg_dropdown"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dropOptionlayout"
+        >
+
+        <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_dropdown"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selected_item_text">
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_buttons"
+            android:fontFamily="@font/poppinslight"
+            android:text="1"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/bg_buttons"
-                android:fontFamily="@font/poppinslight"
-                android:text="1"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:backgroundTint="@null" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_card"
+            android:fontFamily="@font/poppinslight"
+            android:text="2"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/bg_card"
-                android:fontFamily="@font/poppinslight"
-                android:text="2"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:backgroundTint="@null" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_card"
+            android:fontFamily="@font/poppinslight"
+            android:text="3"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null" />
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/bg_card"
-                android:fontFamily="@font/poppinslight"
-                android:text="3"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:backgroundTint="@null" />
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/bg_card"
-                android:fontFamily="@font/poppinslight"
-                android:text="4"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp"
-                app:backgroundTint="@null" />
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_5sdp"
+            android:background="@drawable/bg_card"
+            android:fontFamily="@font/poppinslight"
+            android:text="4"
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_14sdp"
+            app:backgroundTint="@null" />
 
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
     <TextView
-        android:id="@+id/textView26"
+        android:id="@+id/sizeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_16sdp"
@@ -224,12 +229,13 @@
         app:layout_constraintTop_toBottomOf="@+id/dropOptionlayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/primuimButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView26">
+        app:layout_constraintTop_toBottomOf="@+id/sizeText">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton5"
@@ -305,6 +311,20 @@
             app:layout_constraintTop_toTopOf="@id/materialButton9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/imageSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/size_salected"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/primuimButtons"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppinsmedium"
+
+        />
+
 
     <!--    <LinearLayout-->
     <!--        android:id="@+id/linearLayout"-->

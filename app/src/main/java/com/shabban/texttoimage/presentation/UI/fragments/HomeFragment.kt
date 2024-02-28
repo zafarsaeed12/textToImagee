@@ -104,6 +104,9 @@ class HomeFragment : Fragment(), OnItemClick {
         binding.btnDropDown.setOnClickListener {
             binding.dropdownOptionsLayout.visibility = View.VISIBLE
             binding.btnDropDown.visibility=View.GONE
+            binding.sizeText.visibility=View.GONE
+            binding.primuimButtons.visibility=View.GONE
+            binding.btnDropup.visibility=View.VISIBLE
             binding.btnDropup.visibility=View.VISIBLE
 
         }
@@ -111,6 +114,8 @@ class HomeFragment : Fragment(), OnItemClick {
             binding.dropdownOptionsLayout.visibility = View.GONE
             binding.btnDropDown.visibility=View.VISIBLE
             binding.btnDropup.visibility=View.GONE
+            binding.sizeText.visibility=View.VISIBLE
+            binding.primuimButtons.visibility=View.VISIBLE
         }
 
 
